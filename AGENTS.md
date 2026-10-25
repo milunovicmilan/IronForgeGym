@@ -1,0 +1,26 @@
+# AI assistant project context — Ironforge Gym
+
+## Purpose and stack
+Gym web application for IT 2001. Static SPA frontend uses HTML, CSS and JavaScript. Future REST backend must use PHP/FlightPHP, PDO and MySQL.
+
+## Structure
+- `frontend/index.html`: SPA entry point
+- `frontend/js/router.js`: frontend routing
+- `frontend/views/`: HTML views
+- `frontend/css/`: styling
+- `frontend/assets/`: images
+- `backend/routes/`: future FlightPHP endpoints
+- `backend/services/`: future business logic
+- `backend/dao/`: future PDO database access
+- `backend/middleware/`: future authentication, authorization and logging
+- `backend/config/`: future config template; secrets must not be committed
+- `backend/logs/`: runtime logs; never commit logs
+- `docs/AI_LOG.md`: milestone-by-milestone AI usage notes
+
+## Conventions and constraints
+- Keep frontend and backend code separate.
+- Preserve existing files and behavior unless the student explicitly approves changes.
+- Keep HTML views in `frontend/views/` and JS in `frontend/js/`.
+- Use services as the only layer that calls DAOs when backend is implemented.
+- Do not commit credentials, API keys, JWT secrets, vendor files or runtime logs.
+- Explain all generated code to the student before submission.
