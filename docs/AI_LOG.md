@@ -44,3 +44,48 @@ ChatGPT (OpenAI)
 The project was reviewed through browser testing, including navigation, responsive layout, Login/Register forms and Hero image display.
 
 The AI-generated suggestions were checked and revised when they caused errors. The student remains responsible for understanding the project code and explaining its functionality during the defense.
+
+## Milestone 2
+
+### AI Tool Used
+
+ChatGPT / Codex (OpenAI)
+
+### Tasks Performed
+
+- Reviewed the database and DAO implementation against Milestone 2 requirements.
+- Corrected primary-key handling and PHP include paths.
+- Added sample database records and a configuration template.
+- Added validation of writable database columns.
+- Prepared CRUD integration tests and updated documentation.
+
+### Representative Prompts
+
+- "Keep the Milestone 1 frontend unchanged."
+- "Explain BaseDao and guide me through testing with XAMPP."
+
+### AI Errors and Corrections
+
+**1. Incorrect assumptions about available tools**
+
+The assistant initially suggested installation commands requiring
+tools and permissions unavailable in the cloud environment.
+The command errors exposed the issue, and validation was moved
+to an available Docker environment.
+
+**2. Invalid sample password hash**
+
+A copied password hash did not match the documented demo password.
+A password_verify check exposed the mismatch. The hash was replaced
+with a newly generated hash and checked again.
+
+### Validation
+
+The DAO integration test was run locally using XAMPP against
+the iron_forge_gym_v2 database.
+
+All seven entities passed create, read, update, list and delete
+checks. Additional query, input-validation and database-constraint
+checks also passed.
+
+

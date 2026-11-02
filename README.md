@@ -2,26 +2,13 @@
 
 IronForge Gym is a responsive single-page web application (SPA) designed for gym management and fitness services. The project aims to provide an online platform where gym members can explore fitness classes, view trainer information, manage their profiles, and access booking features.
 
-The application is being developed as part of the Web Programming course.
+## Milestone 2 – Database and DAO Layer
 
-## Milestone 1 – Frontend Development
+Milestone 2 includes a relational database with sample data and a PHP PDO DAO layer.
 
-Milestone 1 focuses on implementing the frontend interface, responsive design, navigation, and initial project structure.
+A shared BaseDao provides reusable CRUD operations, while each database entity has its own DAO class.
 
-### Implemented Pages
-
-- Home
-- Classes
-- Trainers
-- Login
-- Register
-- Dashboard
-- Profile
-- Bookings
-
-The application uses client-side routing to navigate between pages without reloading the entire website.
-
-Login, registration, and account-related features currently operate as frontend demonstrations. Full backend authentication and persistent data storage are planned for future milestones.
+The frontend is not yet connected to the database. Backend authentication and frontend integration are planned for later milestones.
 
 ## Technologies Used
 
@@ -31,61 +18,82 @@ Login, registration, and account-related features currently operate as frontend 
 - Bootstrap
 - jQuery
 - Font Awesome
-- MySQL (planned)
-- PHP (planned for backend development)
-- REST API (planned)
+- PHP
+- PDO
+- MySQL / MariaDB
+- FlightPHP REST API (planned)
 
 ## Project Structure
 
 - `frontend/` – Frontend application, including HTML views, CSS, JavaScript, and images.
 - `frontend/index.html` – Main application entry point.
 - `frontend/js/router.js` – Client-side routing and navigation.
-- `frontend/css/style.css` – Application styling.
 - `frontend/views/` – Individual application pages.
-- `frontend/assets/` – Images and other static resources.
-- `backend/` – Initial structure for future backend development.
+- `backend/config/` – Database connection and configuration template.
+- `backend/dao/` – BaseDao and entity DAO classes.
+- `backend/tests/` – DAO integration test.
+- `backend/routes/`, `backend/services/`, `backend/middleware/` – Directories for later backend development.
+- `database/` – SQL schema and sample data.
 - `docs/` – Project documentation and AI usage log.
 - `dbschema.png` – Database Entity Relationship Diagram (ERD).
 - `AGENTS.md` – AI coding assistant instructions.
 
 ## Database Entities and Relationships
 
-The database design is documented in the Entity Relationship Diagram (`dbschema.png`) located in the project root.
+The database contains seven entities:
 
-The ERD defines the planned database structure and relationships required to support gym members, fitness classes, trainers, and bookings.
+- Users
+- Categories
+- Trainers
+- Classes
+- Memberships
+- Bookings
+- User memberships
 
-Database implementation and MySQL integration are planned for future milestones.
+Classes reference categories and trainers. Bookings connect users with classes, while user memberships connect users with membership plans.
+
+The database uses primary keys, foreign keys, and unique email constraints.
+
+The ERD is available in `dbschema.png`. The database schema and sample data are available in `database/iron_forge_gym.sql`.
 
 ## User Roles and Test Accounts
 
-The application is designed to support the following roles:
+The application is designed to support two roles:
 
 ### User
 
-- Browse available fitness classes.
-- View trainer profiles.
+- Browse fitness classes and trainers.
 - Access a personal dashboard.
-- Manage profile information.
-- Access booking-related features.
+- Manage profile information and bookings.
 
 ### Admin
 
-The administrator role is planned to support gym management operations, including managing users, classes, trainers, and bookings.
+- Manage users, classes, trainers, memberships, and bookings.
 
-### Test Accounts
+Role-based access control will be implemented in a later milestone.
 
-Milestone 1 contains frontend demonstrations of login and registration functionality.
+### Sample Accounts
 
-Role-based backend authentication and dedicated test accounts for each role have not yet been implemented. Test credentials will be documented when the authentication system is completed.
+The database includes fictional development accounts:
+
+| Role | Email | Password |
+| --- | --- | --- |
+| Admin | admin@ironforge.example | password |
+| User | member@ironforge.example | password |
+
+Passwords are stored as hashes. These accounts are database samples and cannot yet be used for frontend login. They must not be used in production.
 
 ## Running the Project Locally
 
 ### Requirements
 
-- Visual Studio Code
-- Live Server extension
+- PHP 8.1+ with PDO MySQL enabled
+- MySQL or compatible MariaDB
+- Visual Studio Code with Live Server
 - Modern web browser
 - Internet connection for externally hosted frontend libraries
+
+XAMPP can be used to provide PHP and the database server.
 
 ### Frontend Setup
 
@@ -93,49 +101,66 @@ Role-based backend authentication and dedicated test accounts for each role have
 2. Open the project folder in Visual Studio Code.
 3. Navigate to `frontend/index.html`.
 4. Right-click the file and select **Open with Live Server**.
-5. The application will open in your browser.
 
 The frontend should be accessed through a local HTTP server rather than opening the HTML file directly using `file://`.
 
 ### Database Setup
 
-The database design is available in `dbschema.png`.
+1. Start MySQL in XAMPP.
+2. Open phpMyAdmin and create an empty database using `utf8mb4_general_ci`.
+3. Select the database and import `database/iron_forge_gym.sql`.
+4. Copy `backend/config/config.example.php` to `backend/config/config.php`.
+5. Enter your local database name, host, port, username, and password.
 
-MySQL database import and backend configuration are not required to run the Milestone 1 frontend.
+The SQL import replaces existing project tables. Use an empty development database or back up existing data first.
 
-When database integration is implemented, this section will include instructions for importing the `.sql` file and creating the required backend configuration file.
+The private `config.php` file is excluded from Git and must not be committed.
+
+### DAO Testing
+
+Run the following command from the project root:
+
+    php backend/tests/dao_test.php
+
+For XAMPP on Windows, run in PowerShell:
+
+    & "C:\xampp\php\php.exe" ".\backend\tests\dao_test.php"
+
+Expected final output:
+
+    ALL DAO TESTS PASSED (7 entities)
+
+The test checks CRUD operations, selected queries and joins, input validation, and database constraints. Temporary test records are rolled back after execution.
 
 ## External API Integration
 
-External API integration is planned for a future milestone.
+External API integration is planned for Milestone 3.
 
-The selected external API, its purpose, and the application feature it supports will be documented after implementation.
+The proposed feature is Sarajevo weather information through Open-Meteo, displayed on the dashboard to help members plan outdoor activities.
 
 ## Swagger API Documentation
 
-Swagger documentation is not available in Milestone 1 because the REST API has not yet been implemented.
+Swagger documentation is not yet available because the REST API has not been implemented.
 
-The Swagger documentation URL will be added in a future milestone.
+The documentation URL will be added when the API is completed.
 
 ## Deployment
 
-The application is currently intended to run locally using Live Server.
+The application is currently intended to run locally.
 
-A public deployment URL will be provided when the application is deployed in a future milestone.
+A public deployment URL will be provided in a future milestone.
 
 ## Planned Features
 
-Future development will focus on:
-
-- PHP backend and REST API implementation.
-- MySQL database integration.
-- User authentication and authorization.
-- Role-based access control.
-- Persistent user profiles and bookings.
-- Gym class and trainer management.
+- FlightPHP REST API and service layer.
+- OpenAPI documentation with Swagger.
 - External API integration.
-- Swagger API documentation.
-- Application deployment.
+- User registration and authentication.
+- JWT and role-based access control.
+- Request logging and error handling.
+- Frontend connected to the backend.
+- Frontend MVC organization and additional validation.
+- Public deployment.
 
 ## AI Assistance
 

@@ -24,3 +24,23 @@ Gym web application for IT 2001. Static SPA frontend uses HTML, CSS and JavaScri
 - Use services as the only layer that calls DAOs when backend is implemented.
 - Do not commit credentials, API keys, JWT secrets, vendor files or runtime logs.
 - Explain all generated code to the student before submission.
+
+## Milestone 2 update
+
+Database schema and sample data: database/iron_forge_gym.sql.
+Seven entity DAOs: backend/dao.
+Shared PDO connection: backend/config/Database.php.
+Public template: config.example.php.
+Private config.php must never be committed.
+
+Use actual primary keys, prepared values and allowlisted
+identifiers. PHP includes use __DIR__.
+Services are the only future application layer allowed to
+call DAOs; CLI tests are an exception.
+Keep the existing frontend unchanged.
+No FlightPHP routes/JWT are implemented yet.
+
+Run php backend/tests/dao_test.php against a disposable,
+configured MySQL database.
+Naming: PascalCase entity Dao classes, camelCase methods,
+snake_case database names.

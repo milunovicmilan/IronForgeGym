@@ -145,3 +145,10 @@ vite.config.ts.timestamp-*
 /backend/logs/*
 !/backend/logs/.gitkeep
 **/vendor/
+
+/backend/config/config.php
+/backend/rest/config.php
+/vendor/
+/backend/vendor/
+/backend/logs/
+*.log
