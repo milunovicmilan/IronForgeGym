@@ -89,3 +89,37 @@ checks. Additional query, input-validation and database-constraint
 checks also passed.
 
 
+
+## Milestone 3
+
+### AI Tool Used
+ChatGPT / Codex (OpenAI)
+
+### Tasks Performed
+- Reviewed the requirements PDF, Labs 04/05/06 and their supplied skeleton ZIPs.
+- Reviewed the old project's milestone3 branch; adapted useful patterns to the completed Milestone 2 schema instead of copying incompatible code.
+- Added seven entity services, validation/business rules, native-transaction DAO helpers, FlightPHP CRUD routes and centralized JSON errors.
+- Added OpenAPI PHP attributes, local Swagger UI assets and Sarajevo weather/workout advice through Open-Meteo.
+- Wrote and executed CLI, HTTP, documentation and concurrency checks; documented XAMPP setup.
+
+### Representative Prompts (Paraphrased)
+- "Do the necessary work, test it and return the files here; do not push anything."
+- "Keep My Account/Logout navigation for when real login is introduced."
+
+### AI Errors and Corrections
+
+**1. An overly broad edit inserted an extra timezone statement**
+The assistant's initial text replacement added the MySQL timezone statement both after the PDO connection and inside the missing-configuration error branch, where it was unreachable. Reading back Database.php exposed the misplaced statement. It was removed before testing; only the real connection initialization sets UTC.
+
+**2. Wrong selector in the browser regression test**
+The first browser script expected `.trainers-section`, but the existing Trainers view uses `.team-section`. The test timed out although the page was loaded. The assistant checked the actual HTML, fixed the selector and reran the browser checks successfully. The frontend source was not changed to satisfy the test.
+
+**3. Incorrect assumption about the cloud dependency installer**
+The first Composer install had neither the zip extension nor unzip available. After adding unzip, GitHub archive downloads were denied by the cloud policy. The assistant added Git to the temporary test image and used Composer's supported source installation with locked commit references over the allowed HTTPS Git route. TLS verification remained enabled; project code and the lockfile were not weakened to bypass verification.
+
+### Validation and Limitations
+The existing DAO tests, 50 service checks, 74 HTTP checks through both PHP's development server and Apache, and simultaneous last-seat/duplicate reservation checks passed against a real MySQL 8 database. OpenAPI generated 26 paths / 54 operations / 31 schemas; formal validation and 17 real response-schema comparisons passed. Swagger Try it out worked in Chromium and existing SPA routes/mobile menu remained functional.
+
+Weather fixture tests verify normalization, workout advice, failure handling and logging. The live Open-Meteo request is blocked by the cloud's destination policy and is not claimed as passed. No fake weather data is used by the application.
+
+

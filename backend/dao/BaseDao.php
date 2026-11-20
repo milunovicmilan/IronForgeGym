@@ -127,4 +127,22 @@ class BaseDao {
 
         return $stmt->execute(['id' => $id]);
     }
+
+    /** Serialize capacity/membership decisions on their parent row. SQL stays in the DAO. */
+    public function withLockedRow($id, callable $operation) {
+        $ownsTransaction = !$this->connection->inTransaction();
+        if ($ownsTransaction) { $this->connection->beginTransaction(); }
+        try {
+            $stmt = $this->connection->prepare("SELECT * FROM `{$this->table}` WHERE `{$this->primaryKey}` = :id FOR UPDATE");
+            $stmt->execute(['id' => $id]);
+            $row = $stmt->fetch();
+            $result = $operation($row);
+            if ($ownsTransaction) { $this->connection->commit(); }
+            return $result;
+        } catch (Throwable $e) {
+            if ($ownsTransaction && $this->connection->inTransaction()) { $this->connection->rollBack(); }
+            throw $e;
+        }
+    }
+
 }

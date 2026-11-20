@@ -26,4 +26,11 @@ class CategoryDao extends BaseDao {
        $stmt->execute();
        return $stmt->fetch();
    }
+
+    public function getByExactName($name) {
+        $stmt = $this->connection->prepare('SELECT * FROM categories WHERE name = :name LIMIT 1');
+        $stmt->execute(['name' => $name]);
+        return $stmt->fetch();
+    }
+
 }

@@ -5,4 +5,6 @@ return [
     'database' => getenv('DB_NAME') ?: 'iron_forge_gym',
     'username' => getenv('DB_USER') ?: 'ironforge',
     'password' => getenv('DB_PASSWORD') ?: '',
+    // Open-Meteo needs no API key. Maximum total request time, in seconds.
+    'weather_timeout' => 5,
 ];
