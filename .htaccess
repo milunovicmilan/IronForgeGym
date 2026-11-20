@@ -1,0 +1,5 @@
+Options -Indexes
+RewriteEngine On
+# Repository metadata and database exports are not website resources.
+RewriteRule (^|/)\. - [F,L]
+RewriteRule ^database(?:/|$) - [F,L,NC]
