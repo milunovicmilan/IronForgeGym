@@ -1,0 +1,12 @@
+Options -Indexes
+DirectoryIndex index.php index.html
+RewriteEngine On
+
+# Private implementation/configuration files are never public API endpoints.
+RewriteRule ^(?:config|dao|services|tests|utils|logs|vendor|middleware)(?:/|$) - [F,L,NC]
+RewriteRule ^(?:bootstrap\.php|composer\.(?:json|lock))$ - [F,L,NC]
+RewriteRule ^public/v1/docs(?:/.*)?$ - [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]

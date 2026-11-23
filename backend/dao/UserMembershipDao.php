@@ -47,4 +47,11 @@ class UserMembershipDao extends BaseDao {
        $stmt->execute();
        return $stmt->fetchAll();
    }
+
+    public function findOverlapping($userId, $start, $end, $exceptId = 0) {
+        $stmt = $this->connection->prepare('SELECT * FROM user_memberships WHERE user_id = :user_id AND start_date <= :end_date AND end_date >= :start_date AND user_membership_id <> :except_id LIMIT 1');
+        $stmt->execute(['user_id' => $userId, 'start_date' => $start, 'end_date' => $end, 'except_id' => $exceptId]);
+        return $stmt->fetch();
+    }
+
 }

@@ -64,4 +64,11 @@ class BookingDao extends BaseDao {
        $stmt->execute();
        return $stmt->fetch();
    }
+
+    public function countActiveByClass($classId) {
+        $stmt = $this->connection->prepare("SELECT COUNT(*) FROM bookings WHERE class_id = :class_id AND status = 'booked'");
+        $stmt->execute(['class_id' => $classId]);
+        return (int)$stmt->fetchColumn();
+    }
+
 }

@@ -1,0 +1,27 @@
+{
+    "name": "ironforge/gym-api",
+    "description": "IronForge Gym REST API - Milestone 3",
+    "type": "project",
+    "require": {
+        "php": ">=8.2",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "ext-curl": "*",
+        "flightphp/core": "^3.19",
+        "zircote/swagger-php": "^6.12"
+    },
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "8.2.0"
+        }
+    },
+    "scripts": {
+        "test:dao": "php tests/dao_test.php",
+        "test:services": "php tests/services_test.php",
+        "docs": "php tests/docs_test.php",
+        "test:api": "php tests/api_test.php",
+        "test:weather": "php tests/weather_test.php",
+        "test:concurrency": "php tests/concurrency_test.php"
+    }
+}
